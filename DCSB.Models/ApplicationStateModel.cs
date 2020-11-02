@@ -26,6 +26,17 @@ namespace DCSB.Models
             }
         }
 
+        private bool _multiSoundOpened;
+        public bool MultiSoundOpened
+        {
+            get { return _multiSoundOpened; }
+            set
+            {
+                _multiSoundOpened = value;
+                RaisePropertyChanged("MultiSoundOpened");
+            }
+        }
+
         private bool _counterOpened;
         public bool CounterOpened
         {

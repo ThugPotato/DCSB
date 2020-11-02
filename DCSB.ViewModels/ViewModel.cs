@@ -12,6 +12,7 @@ using DCSB.Utils;
 using System.Threading.Tasks;
 using System.Security.Principal;
 using System.Diagnostics;
+using System.IO;
 
 namespace DCSB.ViewModels
 {
@@ -28,6 +29,7 @@ namespace DCSB.ViewModels
         private KeyboardInput _keyboardInput;
 
         private PresetConfigurationViewModel _presetConfigurationViewModel;
+        private MultiSoundViewModel _multiSoundViewModel;
 
         private double _previousVolume;
         private double _previousPrimaryVolume;
@@ -45,6 +47,7 @@ namespace DCSB.ViewModels
             _updateManager = new UpdateManager();
 
             _presetConfigurationViewModel = new PresetConfigurationViewModel(_applicationStateModel, _configurationModel);
+            _multiSoundViewModel = new MultiSoundViewModel(_applicationStateModel, _configurationModel);
 
             _configurationModel.PropertyChanged += (sender, e) => _configurationManager.Save((ConfigurationModel)sender);
 
@@ -84,6 +87,11 @@ namespace DCSB.ViewModels
         public PresetConfigurationViewModel PresetConfigurationViewModel
         {
             get { return _presetConfigurationViewModel; }
+        }
+
+        public MultiSoundViewModel MultiSoundViewModel
+        {
+            get { return _multiSoundViewModel; }
         }
 
         public GridLength CountersWidth
@@ -259,7 +267,7 @@ namespace DCSB.ViewModels
 
         public ICommand OpenSoundCommand
         {
-            get { return new RelayCommand(OpenSound, AreSoundsEnabled); }
+            get { return new RelayCommand(OpenSound, _configurationModel.AreSoundsEnabled); }
         }
         private void OpenSound()
         {
@@ -316,8 +324,9 @@ namespace DCSB.ViewModels
 
         public ICommand OpenSoundFileDialogCommand
         {
-            get { return new RelayCommand(OpenSoundFileDialog, AreSoundsEnabled); }
+            get { return new RelayCommand(OpenSoundFileDialog, _configurationModel.AreSoundsEnabled); }
         }
+
         private void OpenSoundFileDialog()
         {
             string[] result = _openFileManager.OpenSoundFiles();
@@ -327,6 +336,11 @@ namespace DCSB.ViewModels
                 foreach (string file in result)
                 {
                     _configurationModel.SelectedPreset.SelectedSound.Files.Add(file);
+                }
+
+                if(_configurationModel.SelectedPreset.SelectedSound.Files.Count == 1)
+                {
+                    _configurationModel.SelectedPreset.SelectedSound.Name = Path.GetFileNameWithoutExtension(_configurationModel.SelectedPreset.SelectedSound.Files[0]);
                 }
             }
         }
@@ -436,7 +450,7 @@ namespace DCSB.ViewModels
 
         public ICommand MuteCommand
         {
-            get { return new RelayCommand(Mute, AreSoundsEnabled); }
+            get { return new RelayCommand(Mute, _configurationModel.AreSoundsEnabled); }
         }
         private void Mute()
         {
@@ -487,7 +501,7 @@ namespace DCSB.ViewModels
 
         public ICommand AddSoundCommand
         {
-            get { return new RelayCommand(AddSound, AreSoundsEnabled); }
+            get { return new RelayCommand(AddSound, _configurationModel.AreSoundsEnabled); }
         }
         private void AddSound()
         {
@@ -498,9 +512,20 @@ namespace DCSB.ViewModels
             _applicationStateModel.SoundOpened = true;
         }
 
+        public ICommand MultiAddSoundsCommand
+        {
+            get { return new RelayCommand(MultiAddSounds, _configurationModel.AreSoundsEnabled); }
+        }
+
+        private void MultiAddSounds()
+        {
+           _multiSoundViewModel = new MultiSoundViewModel(_applicationStateModel, _configurationModel);
+            _applicationStateModel.MultiSoundOpened = true;
+        }
+
         public ICommand RemoveSoundCommand
         {
-            get { return new RelayCommand(RemoveSound, AreSoundsEnabled); }
+            get { return new RelayCommand(RemoveSound, _configurationModel.AreSoundsEnabled); }
         }
         private void RemoveSound()
         {
@@ -509,7 +534,7 @@ namespace DCSB.ViewModels
 
         public ICommand PlayCommand
         {
-            get { return new RelayCommand(Play, AreSoundsEnabled); }
+            get { return new RelayCommand(Play, _configurationModel.AreSoundsEnabled); }
         }
         private void Play()
         {
@@ -521,7 +546,7 @@ namespace DCSB.ViewModels
 
         public ICommand PauseCommand
         {
-            get { return new RelayCommand(Pause, AreSoundsEnabled); }
+            get { return new RelayCommand(Pause, _configurationModel.AreSoundsEnabled); }
         }
         private void Pause()
         {
@@ -530,7 +555,7 @@ namespace DCSB.ViewModels
 
         public ICommand ContinueCommand
         {
-            get { return new RelayCommand(Continue, AreSoundsEnabled); }
+            get { return new RelayCommand(Continue, _configurationModel.AreSoundsEnabled); }
         }
         private void Continue()
         {
@@ -539,7 +564,7 @@ namespace DCSB.ViewModels
 
         public ICommand StopCommand
         {
-            get { return new RelayCommand(Stop, AreSoundsEnabled); }
+            get { return new RelayCommand(Stop, _configurationModel.AreSoundsEnabled); }
         }
         private void Stop()
         {
@@ -589,11 +614,6 @@ namespace DCSB.ViewModels
         private bool AreCountersEnabled()
         {
             return _configurationModel.Enable == DisplayOption.Counters || _configurationModel.Enable == DisplayOption.Both;
-        }
-
-        private bool AreSoundsEnabled()
-        {
-            return _configurationModel.Enable == DisplayOption.Sounds || _configurationModel.Enable == DisplayOption.Both;
         }
     }
 }

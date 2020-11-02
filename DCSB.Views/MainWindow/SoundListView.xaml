@@ -72,6 +72,11 @@
             <Controls:IconButton DockPanel.Dock="Left" 
                                  Content="{StaticResource AddIcon}"
                                  Margin="2"
+                                 Command="{Binding MultiAddSoundsCommand}"
+                                 ToolTip="Add Multiple Sounds" />
+            <Controls:IconButton DockPanel.Dock="Left" 
+                                 Content="{StaticResource IncrementIcon}"
+                                 Margin="2"
                                  Command="{Binding AddSoundCommand}"
                                  ToolTip="Add Sound" />
             <Controls:IconButton DockPanel.Dock="Left" 

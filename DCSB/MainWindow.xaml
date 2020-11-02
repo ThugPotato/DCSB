@@ -28,6 +28,9 @@
         <Interactivity:OpenCloseWindowBehavior WindowType="local:SoundWindow" 
                                                Open="{Binding ApplicationStateModel.SoundOpened, Mode=TwoWay}" 
                                                DataContext="{Binding}" />
+        <Interactivity:OpenCloseWindowBehavior WindowType="local:MultiSoundWindow" 
+                                               Open="{Binding ApplicationStateModel.MultiSoundOpened, Mode=TwoWay}" 
+                                               DataContext="{Binding}" />
         <Interactivity:OpenCloseWindowBehavior WindowType="local:CounterWindow" 
                                                Open="{Binding ApplicationStateModel.CounterOpened, Mode=TwoWay}" 
                                                DataContext="{Binding}" />

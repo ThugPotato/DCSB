@@ -64,6 +64,7 @@
       <Link>Properties\AssemblyVersionInfo.cs</Link>
     </Compile>
     <Compile Include="PresetConfigurationViewModel.cs" />
+    <Compile Include="MultiSoundViewModel.cs" />
     <Compile Include="PresetViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel.cs" />

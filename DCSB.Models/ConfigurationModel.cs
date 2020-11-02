@@ -212,5 +212,10 @@ namespace DCSB.Models
             CountersWidth = 1;
             SoundsWidth = 1;
         }
+
+        public bool AreSoundsEnabled()
+        {
+            return this.Enable == DisplayOption.Sounds || this.Enable == DisplayOption.Both;
+        }
     }
 }

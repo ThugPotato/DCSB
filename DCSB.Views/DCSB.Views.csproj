@@ -78,6 +78,9 @@
     <Compile Include="SettingsWindow\SoundView.xaml.cs">
       <DependentUpon>SoundView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MultiSoundView.xaml.cs">
+      <DependentUpon>MultiSoundView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SoundView.xaml.cs">
       <DependentUpon>SoundView.xaml</DependentUpon>
     </Compile>
@@ -118,6 +121,10 @@
     <Page Include="SettingsWindow\SoundView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MultiSoundView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="SoundView.xaml">
       <SubType>Designer</SubType>
