@@ -9,7 +9,7 @@
     <DockPanel>
         <DockPanel DockPanel.Dock="Bottom">
             <Controls:IconButton DockPanel.Dock="Left" 
-                                 Content="{StaticResource IncrementIcon}"
+                                 Content="{StaticResource AddIcon}"
                                  Margin="2"
                                  Command="{Binding AddSoundsCommand}"
                                  ToolTip="Add Sounds" />
@@ -19,7 +19,7 @@
                                  Command="{Binding RemoveSoundCommand}"
                                  ToolTip="Remove Sound" />
             <Controls:IconButton DockPanel.Dock="Right" 
-                                 Content="{StaticResource RightArrowIcon}" 
+                                 Content="{StaticResource CheckAllIcon}" 
                                  Margin="2"
                                  Command="{Binding ConfirmSoundsCommand}"
                                  ToolTip="Confirm Changes" />

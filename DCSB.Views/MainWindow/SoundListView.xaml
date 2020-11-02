@@ -6,6 +6,7 @@
              xmlns:Controls="clr-namespace:DCSB.Controls;assembly=DCSB.Controls"
              xmlns:Converters="clr-namespace:DCSB.Converters;assembly=DCSB.Converters"
              xmlns:Interactivity="clr-namespace:DCSB.Interactivity;assembly=DCSB.Interactivity"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              MinHeight="70" 
              MinWidth="180"
@@ -70,12 +71,12 @@
 
         <DockPanel DockPanel.Dock="Bottom">
             <Controls:IconButton DockPanel.Dock="Left" 
-                                 Content="{StaticResource AddIcon}"
+                                 Content="{StaticResource AddTable}"
                                  Margin="2"
                                  Command="{Binding MultiAddSoundsCommand}"
                                  ToolTip="Add Multiple Sounds" />
             <Controls:IconButton DockPanel.Dock="Left" 
-                                 Content="{StaticResource IncrementIcon}"
+                                 Content="{StaticResource AddIcon}"
                                  Margin="2"
                                  Command="{Binding AddSoundCommand}"
                                  ToolTip="Add Sound" />
